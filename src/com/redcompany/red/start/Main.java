@@ -11,7 +11,7 @@ import java.util.*;
 
 public class Main {
 
-    //this task use GUAVA! add GUAVA from the lib folder to the project
+    //this task use GUAVA! add GUAVA from the lib folder to the project !!!!
 
     public static final String FILEPATH = "./src/com/redcompany/red/inputfiles/File.txt";
     private Multiset<Word> wordList = HashMultiset.create();
@@ -26,19 +26,23 @@ public class Main {
         try (BufferedReader reader = new BufferedReader(
                 new FileReader((FILEPATH)))) {
             String line;
-            int n = 1;
             while ((line = reader.readLine()) != null) {
-                String[] strArray = line.replaceAll("[^a-zA-Z+ ]", " ").toLowerCase().split("\\s+");
-                for (int i = 0; i < strArray.length; i++) {
-                    wordList.add(new Word(strArray[i]));
+                wordList = parsingFile(line);
                 }
-            }
         } catch (FileNotFoundException e) {
             System.out.println("File was no found!");
         } catch (IOException e) {
             System.out.println("Problems with the file");
         }
         return wordList;
+    }
+
+    private  Multiset<Word> parsingFile(String line){
+        String[] strArray = line.replaceAll("[^a-zA-Z+ ]", " ").toLowerCase().split("\\s+");
+        for (int i = 0; i < strArray.length; i++) {
+            wordList.add(new Word(strArray[i]));
+        }
+            return wordList;
     }
 
     private void showListDuplicates(Multiset<Word> showlist) {
@@ -85,5 +89,8 @@ class Word {
         return Objects.hash(word);
     }
 }
+
+
+
 
 
